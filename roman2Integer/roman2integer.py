@@ -1,8 +1,9 @@
 class Solution(object):
-    def romanToInt(self, s):
+    def romanToIntNaive(self, s):
         """
         :type s: str
         :rtype: int
+        Naive implementation faster than 50% of submissions and using less space than 50% of submissions
         """
         sum = 0
         index = 0
@@ -67,3 +68,48 @@ class Solution(object):
                 print("UNEXPECTED INPUT!")
 
         print(sum)
+
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        Optimized implementation faster than 96% of submissions and using less space than 57% of submissions
+        """
+
+        i = 0
+        sum = 0
+
+        values_Long = {
+            "IV": 4,
+            "IX": 9,
+            "XL": 40,
+            "XC": 90,
+            "CD": 400,
+            "CM": 900
+        }
+
+        values_Short = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+
+        while (i < len(s)):
+            if (s[i:i+2] in values_Long):
+                sum = sum + values_Long[s[i:i+2]]
+                i = i + 2
+            else:
+                sum = sum + values_Short[s[i]]
+                i = i + 1
+
+        return sum
+
+
+if __name__ == "__main__":
+    Solver = Solution()
+
+    print(Solver.romanToInt("MCMXCIV"))
